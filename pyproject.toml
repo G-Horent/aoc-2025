@@ -22,3 +22,6 @@ dependencies = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aoc_solutions"]
+
+[tool.ruff]
+line-length = 88
