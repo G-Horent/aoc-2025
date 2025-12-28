@@ -66,7 +66,6 @@ class Solution(BaseSolution):
         array = np.zeros((n_rows, n_cols), dtype=bool)
 
         for idx_row, curr_row in enumerate(self.inputs):
-            print
             input_as_list = [
                 mapping_chr_to_bool[x] for x in curr_row.__iter__() if x != "\n"
             ]
