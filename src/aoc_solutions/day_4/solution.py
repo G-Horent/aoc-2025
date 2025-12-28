@@ -14,15 +14,43 @@ class Solution(BaseSolution):
         """Solve puzzle for day 4."""
 
         array = self.convert_input_to_array()
-
-        # Convolve with filter
         flt = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]])
+        if part == 1:
+            # Convolve with filter
+            count_neighbors = correlate2d(
+                array.astype(int), flt, mode="same", fillvalue=0
+            )
 
-        count_neighbors = correlate2d(array.astype(int), flt, mode="same", fillvalue=0)
+            count_of_piles_to_move = np.logical_and(count_neighbors < 4, array).sum()
 
-        count_of_piles_to_move = np.logical_and(count_neighbors < 4, array).sum()
+            logger.info(f"Number of piles that can be moved: {count_of_piles_to_move}")
 
-        logger.info(f"Number of piles that can be moved: {count_of_piles_to_move}")
+        elif part == 2:
+            # Iteratively process.
+            total_number_of_piles_removed = 0
+            number_of_piles_removed_this_round = -1
+
+            while number_of_piles_removed_this_round != 0:
+                count_neighbors = correlate2d(
+                    array.astype(int), flt, mode="same", fillvalue=0
+                )
+                piles_to_be_removed = np.logical_and(count_neighbors < 4, array)
+                number_of_piles_removed_this_round = piles_to_be_removed.sum()
+
+                # Update the current array of piles
+                array = (array.astype(int) - piles_to_be_removed.astype(int)).astype(
+                    bool
+                )
+
+                logger.info(
+                    f"Number of piles removed this round: {number_of_piles_removed_this_round}"
+                )
+
+                total_number_of_piles_removed += number_of_piles_removed_this_round
+
+            logger.success(
+                f"Total number of piles removed: {total_number_of_piles_removed}"
+            )
 
     def convert_input_to_array(self) -> np.ndarray:
         """Convert puzzle input to Numpy array.
@@ -50,4 +78,5 @@ class Solution(BaseSolution):
 
 if __name__ == "__main__":
     sol = Solution()
-    sol.solve_puzzle()
+    sol.solve_puzzle(part=1)
+    sol.solve_puzzle(part=2)
