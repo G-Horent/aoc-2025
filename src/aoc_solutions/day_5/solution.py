@@ -65,12 +65,12 @@ class Solution(BaseSolution):
     def solve_puzzle(self, part: int = 1):
         """Solve puzzle for day 5."""
         # First, split and interpret the inputs
-        idx_blank = self.inputs.index("\n")
+        idx_blank = self.inputs.index("")
         list_ranges_str = self.inputs[:idx_blank]
         list_ingredients_str = self.inputs[idx_blank + 1 :]
 
         all_ranges = [
-            (int(x.split("-")[0]), int(x.split("-")[1][:-1])) for x in list_ranges_str
+            (int(x.split("-")[0]), int(x.split("-")[1])) for x in list_ranges_str
         ]
         all_ingredients = [int(x[:-1]) for x in list_ingredients_str]
 

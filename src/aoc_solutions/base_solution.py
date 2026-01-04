@@ -14,7 +14,7 @@ class BaseSolution(ABC):
         """Load the input file."""
 
         with open(osp.join(self.input_path, f"{self.name}.txt"), "r") as file:
-            inputs = file.readlines()
+            inputs = file.read().splitlines()
 
         return inputs
 

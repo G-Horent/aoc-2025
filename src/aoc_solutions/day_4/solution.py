@@ -23,7 +23,9 @@ class Solution(BaseSolution):
 
             count_of_piles_to_move = np.logical_and(count_neighbors < 4, array).sum()
 
-            logger.info(f"Number of piles that can be moved: {count_of_piles_to_move}")
+            logger.success(
+                f"Number of piles that can be moved: {count_of_piles_to_move}"
+            )
 
         elif part == 2:
             # Iteratively process.
@@ -61,14 +63,12 @@ class Solution(BaseSolution):
             The input converted as a boolean array.
         """
         mapping_chr_to_bool = {".": False, "@": True}
-        n_rows, n_cols = len(self.inputs), len(self.inputs[0]) - 1
+        n_rows, n_cols = len(self.inputs), len(self.inputs[0])
 
         array = np.zeros((n_rows, n_cols), dtype=bool)
 
         for idx_row, curr_row in enumerate(self.inputs):
-            input_as_list = [
-                mapping_chr_to_bool[x] for x in curr_row.__iter__() if x != "\n"
-            ]
+            input_as_list = [mapping_chr_to_bool[x] for x in curr_row.__iter__()]
 
             array[idx_row, :] = np.array(input_as_list, dtype=bool)
 

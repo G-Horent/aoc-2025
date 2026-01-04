@@ -13,7 +13,7 @@ class Solution(BaseSolution):
 
         for current_input in self.inputs:
             # Turn the input into a list of ints
-            input_as_list = [int(x) for x in current_input.__iter__() if x != "\n"]
+            input_as_list = [int(x) for x in current_input.__iter__()]
             if part == 1:
                 idx_max_value = np.argmax(input_as_list)
                 if idx_max_value == len(input_as_list) - 1:
